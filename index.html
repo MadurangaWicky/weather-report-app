@@ -9,11 +9,50 @@
 
   <script src="js/index.js"></script>
 
-</head>
-<body>
+  <style>
+  body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 100vh;
+  }
+  .weather-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+  }
+</style>
 
-  <div class="container mt-5">
-    <h3 class="text-center text-primary">Colombo Weather App</h3>
+</head>
+
+<body id="body" class="d-flex align-items-center justify-content-center">
+  <div class="weather-container text-center text-light p-4 shadow">
+    <h1 id="city" class="fw-bold">City</h1>
+    <p id="region-country" class="mb-4">Region, Country</p>
+    
+    <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-3">
+      <img id="condition-icon" src="" alt="Weather Icon" class="me-md-3" style="width: 64px;">
+      <div>
+        <h2 id="temperature" class="display-4">-- °C</h2>
+        <p id="condition-text">Condition</p>
+        <p id="live-time" class="fs-5 fw-semibold mb-4">--:--:--</p>
+        <p id="last-updated">Last updated: --</p>
+      </div>
+    </div>
+
+    <div class="row text-start text-md-center">
+      <div class="col-6 col-md-3 mb-2"><strong>Feels like:</strong> <span id="feelslike">-- °C</span></div>
+      <div class="col-6 col-md-3 mb-2"><strong>Wind:</strong> <span id="wind">-- km/h</span></div>
+      <div class="col-6 col-md-3 mb-2"><strong>Humidity:</strong> <span id="humidity">--%</span></div>
+      <div class="col-6 col-md-3 mb-2"><strong>Pressure:</strong> <span id="pressure">-- mb</span></div>
+      <div class="col-6 col-md-3 mb-2"><strong>Precipitation:</strong> <span id="precip">-- mm</span></div>
+      <div class="col-6 col-md-3 mb-2"><strong>Visibility:</strong> <span id="visibility">-- km</span></div>
+      <div class="col-6 col-md-3 mb-2"><strong>Cloud:</strong> <span id="cloud">--%</span></div>
+      <div class="col-6 col-md-3 mb-2"><strong>Dew Point:</strong> <span id="dewpoint">-- °C</span></div>
+    </div>
   </div>
 
 </body>
