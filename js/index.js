@@ -1,11 +1,30 @@
 
+
+
 let city = 'Colombo';
 
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("search-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    setCity();
+  });
+});
 
+function setCity() {
+  const input = document.getElementById("city-input").value.trim();
+  console.log(`Setting city to: ${input}`);
+  if (input) {
+    city = input;
+    fetchWeather();
+    document.getElementById("city-input").value = '';
+  } else {
+    alert("Please enter a valid city name.");
+  }
+}
 
   function setBackground(hour, conditionText) {
       let bg = '';
-      const isCloudy = conditionText.toLowerCase().includes("cloud") || conditionText.toLowerCase().includes("rain");
+      const isCloudy = conditionText.toLowerCase().includes("cloud") || conditionText.toLowerCase().includes("rain") || conditionText.toLowerCase().includes("drizzle") || conditionText.toLowerCase().includes("fog") || conditionText.toLowerCase().includes("mist");
 
       if (isCloudy) {
 
@@ -65,6 +84,7 @@ function updateWeatherUI(data) {
 }
 
 function fetchWeather() {
+  console.log(`Fetching weather data for ${city}...`);
   fetch(`api/weather?city=${city}`)
     .then(response => {
       if (!response.ok) throw new Error(`API error: ${response.status}`);
