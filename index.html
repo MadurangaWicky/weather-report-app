@@ -1,20 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Colombo Weather</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Reporter</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
 
-  <script src="js/index.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-</head>
-<body>
+    <style>
+      body {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        min-height: 100vh;
+      }
+      .weather-container {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 16px;
+        padding: 30px;
+        max-width: 800px;
+        margin: auto;
+      }
+    </style>
+  </head>
 
-  <div class="container mt-5">
-    <h3 class="text-center text-primary">Colombo Weather App</h3>
-  </div>
+  <body id="body" class="d-flex align-items-center justify-content-center">
+    <div
+      id="loading-spinner"
+      style="
+        display: block;
+        background-color: black;
+        opacity: 0.8;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+      "
+    >
+      <div
+        class="spinner-border text-light mb-2"
+        role="status"
+        style="width: 2rem; height: 2rem"
+      ></div>
+      <div style="font-size: 14px">Loading weather data...</div>
+    </div>
 
-</body>
+    <div
+      id="weather-content"
+      class="weather-container text-center text-light p-4 shadow"
+      style="display: none"
+    >
+      <div id="search-bar" class="mb-4">
+        <form id="search-form" class="row g-2 justify-content-center">
+          <div class="col-12 col-md-6">
+            <input
+              type="text"
+              id="city-input"
+              class="form-control"
+              placeholder="Enter city name..."
+              aria-label="Search City"
+            />
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-light w-100">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <h1 id="city" class="fw-bold">City</h1>
+      <p id="region-country" class="mb-4">Region, Country</p>
+
+      <div
+        class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-3"
+      >
+        <img
+          id="condition-icon"
+          src=""
+          alt="Weather Icon"
+          class="me-md-3"
+          style="width: 64px"
+        />
+        <div>
+          <h2 id="temperature" class="display-4">-- °C</h2>
+          <p id="condition-text">Condition</p>
+          <p class="fs-5 fw-semibold mb-4">
+            <span>Your Local Time : </span><span id="live-time">--:--:--</span>
+          </p>
+          <p class="fs-5 fw-semibold mb-4">
+            <span><span id="clock-city">City</span>'s Local Time : </span><span id="city-live-time">--:--:--</span>
+          </p>
+
+          <p id="last-updated">Last updated: --</p>
+        </div>
+      </div>
+
+      <div class="row text-start text-md-center">
+        <div class="col-6 col-md-3 mb-2">
+          <strong>Feels like:</strong> <span id="feelslike">-- °C</span>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <strong>Wind:</strong> <span id="wind">-- km/h</span>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <strong>Humidity:</strong> <span id="humidity">--%</span>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <strong>Pressure:</strong> <span id="pressure">-- mb</span>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <strong>Precipitation:</strong> <span id="precip">-- mm</span>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <strong>Visibility:</strong> <span id="visibility">-- km</span>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <strong>Cloud:</strong> <span id="cloud">--%</span>
+        </div>
+        <div class="col-6 col-md-3 mb-2">
+          <strong>UV Index:</strong> <span id="uvindex">--</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/index.js"></script>
+  </body>
 </html>
